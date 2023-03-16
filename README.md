@@ -19,12 +19,13 @@ This Test API was created to solve a fake business rule.
 
 ### 2. Install requirements
 
-- Run `pip install -r requirements/dev.txt` command
+- Install pipenv: `pip install pipenv`
+- Install requirements: `pipenv install --dev`
 - If necessary, set environment variables like `app/settings/environment.py`
 
 ### 2. Run app
 
-- Start `run.py` file.
+- Start `pipenv run uvicorn main:app --host 0.0.0.0 --port 80 --reload` file.
 - It runs an uvicorn server at `127.0.0.1:8000`
 - Access the docs from `127.0.0.1:8000/docs`
 
