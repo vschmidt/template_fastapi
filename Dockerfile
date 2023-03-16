@@ -3,7 +3,7 @@ FROM python:3.10-alpine
 # ENVS
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR src
+WORKDIR app
 
 # Install system requirements
 RUN apk add --update --no-cache --virtual .tmp \
@@ -25,11 +25,11 @@ RUN pipenv --clear \
     && adduser -D fastapi 
 
 # Copy source code
-COPY ./src .
+COPY ./src /app/src
 
 # Run application
 EXPOSE 80
 
 USER fastapi
 
-CMD ["python3", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["python3", "-m", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "80"]
