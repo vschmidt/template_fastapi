@@ -9,6 +9,9 @@ uvicorn = {version="0.21.1", extras=["standard"]}
 
 [dev-packages]
 black = "*"
+pyclean = "*"
+pytest = "*"
+httpx = "*"
 
 [requires]
 python_version = "3.10"
