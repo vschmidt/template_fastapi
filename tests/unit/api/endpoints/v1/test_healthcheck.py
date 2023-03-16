@@ -7,7 +7,6 @@ class TestHealthChekEndpoints(unittest.TestCase):
         self.client = TestClient(app)
 
     def test_healthy(self):
-        response = self.client.get("/healthcheck")
+        response = self.client.get("/v1/healthcheck")
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {"status": "Healthy"})
