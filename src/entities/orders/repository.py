@@ -4,7 +4,7 @@ Order repository module
 from sqlalchemy import select
 
 from src.entities.orders.models import OrderModel
-from src.entities.orders.schemas import OrderSchema
+from src.entities.orders.schemas import CreateOrderSchema, OrderSchema
 from src.infrastructure.postgres.database import PostgresDatabase
 
 
@@ -16,3 +16,7 @@ class OrderRepository:
 
         results = [OrderSchema(**r[0].to_dict()) for r in results]
         return results
+
+    @classmethod
+    def create_new_order(cls, order: CreateOrderSchema):
+        pass
