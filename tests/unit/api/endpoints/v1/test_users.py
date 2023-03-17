@@ -98,4 +98,4 @@ class TestUsersV1(unittest.TestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        service_mock.get_current_user_cashback.assert_called_once()
+        service_mock.get_user_cashback.assert_called_once()

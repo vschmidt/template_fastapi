@@ -55,4 +55,4 @@ async def get_me_information(token_infos: dict = Depends(AuthBearerValidator()))
 async def get_me_accumulated_cashback(
     token_infos: dict = Depends(AuthBearerValidator()),
 ):
-    return UserService.get_current_user_cashback(TokenInfos(**token_infos))
+    return UserService.get_user_cashback(TokenInfos(**token_infos))

@@ -26,3 +26,8 @@ class UserInDBSchema(UserSchema):
 class UserLoginSchema(BaseModel):
     cpf: str = Field(example="12312312312")
     password: str = Field(example="Minhasenhasuperforte!1")
+
+
+class UserAccumulatedCashbackSchema(BaseModel):
+    cpf: str = Field(example="12312312312")
+    accumulated_cashback: float = Field(example=20.22)
