@@ -12,3 +12,4 @@ class Environment(BaseSettings):
     )
     ALGORITHM: str = Field("HS256", env="ALGORITHM")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(30, env="ACCESS_TOKEN_EXPIRE_MINUTES")
+    AUTO_APPROVED_CPFS: list = Field(["15350946056"], env="AUTO_APPROVED_CPFS")

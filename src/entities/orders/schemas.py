@@ -23,7 +23,7 @@ class OrderSchema(BaseModel):
     value: float = Field(example=22.5)
     cpf: str = Field(max_length=11, example="12312312312")
     date: str = Field(example=datetime.now(), default=datetime.now())
-    status: Optional[str] = Field(example="In validation")
+    status: str = Field(example="Em validação", default="Em validação")
     created_at: str = Field(example=datetime.now(), default=datetime.now())
     updated_at: str = Field(example=datetime.now(), default=datetime.now())
 
