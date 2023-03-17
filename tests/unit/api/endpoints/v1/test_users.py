@@ -56,7 +56,7 @@ class TestUsersV1(unittest.TestCase):
                 "password": "password",
             }
         ).dict()
-        service_mock.token_login.return_value = None
+        service_mock.token_login.return_value = "false_token"
 
         response = self.client.post("/v1/users/token", json=user)
 
