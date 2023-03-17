@@ -45,7 +45,7 @@ class TestUsersV1(unittest.TestCase):
     @patch("src.api.endpoints.v1.users.UserService")
     def test_create_new_user_with_success(self, service_mock):
         user = UserLoginSchema(**{            
-            "email": "email@email.com",           
+            "cpf": "email@email.com",           
             "password": "password",
         }).dict()
         service_mock.token_login.return_value = None

@@ -20,5 +20,5 @@ class UserInDBSchema(UserSchema):
     hashed_password: str
 
 class UserLoginSchema(BaseModel):
-    email: str
+    cpf: str
     password: str
