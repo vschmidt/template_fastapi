@@ -10,7 +10,7 @@ class OrderModel(base):
     id = Column(Integer(), primary_key=True)
     code = Column(Integer(), nullable=False)
     value = Column(Numeric(), nullable=False)
-    cpf = Column(String(11), nullable=False, unique=True)
+    cpf = Column(String(11), nullable=False)
     status = Column(String(20), nullable=True, default="In validation")
     date = Column(DateTime(), default=datetime.now)
     created_at = Column(DateTime(), default=datetime.now)
