@@ -20,7 +20,11 @@ async def create_user(user: UserRegisterSchema):
 async def get_user_token(user: UserLoginSchema):
     try:
         jwt_token_created = UserService.token_login(user)
-        return JSONResponse({"token":jwt_token_created}, status_code=status.HTTP_200_OK)
+        
+        if jwt_token_created:
+            return JSONResponse({"token":jwt_token_created}, status_code=status.HTTP_200_OK)
+
+        return JSONResponse({"message":"Erro ao processar"}, status_code=status.HTTP_400_BAD_REQUEST)
     except Exception as err:
         logging.error(err)
         return JSONResponse({"message":"Erro ao processar"}, status_code=status.HTTP_400_BAD_REQUEST)

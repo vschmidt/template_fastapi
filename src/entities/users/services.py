@@ -27,4 +27,14 @@ class UserService:
 
     @classmethod
     def token_login(cls, user:UserLoginSchema):
-        return None
+        user_in_db = UserRepository.get_user_by_cpf(user.cpf)
+
+        if user_in_db and cls.verify_password(user.password, user_in_db.hashed_password):                
+            return "mylittleponey"
+        
+        return False
+
+    @classmethod
+    def verify_password(cls, plain_password:str, hashed_password:str):
+        pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+        return pwd_context.verify(plain_password, hashed_password)
