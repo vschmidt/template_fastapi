@@ -21,8 +21,9 @@ class TestUserService(unittest.TestCase):
 
         response = UserService.create_user(valid_user)
 
+        self.assertIsNone(response)
         repository_mock.get_user_by_cpf.assert_called_once_with(valid_user.cpf)
-        self.assertTrue(response)
+        repository_mock.create_new_user.assert_called_once_with(valid_user)
 
     def test_create_user_already_exists(self, repository_mock):
         valid_user = UserRegister(**{

@@ -5,13 +5,10 @@ from src.shared.exceptions.exceptions import UserAlreadyExists
 
 class UserService:
     @classmethod
-    def create_user(cls, user:UserRegister):
-        user = UserRepository.get_user_by_cpf(user.cpf)
-        if user:
+    def create_user(cls, user_to_register:UserRegister):
+        user_already_in_db = UserRepository.get_user_by_cpf(user_to_register.cpf)
+        if user_already_in_db:
             raise UserAlreadyExists
-
-        # insert new user
-
-
-        return True
+        
+        UserRepository.create_new_user(user_to_register)
 
