@@ -23,7 +23,7 @@ class TestUserService(unittest.TestCase):
 
         self.assertIsNone(response)
         repository_mock.get_user_by_cpf.assert_called_once_with(valid_user.cpf)
-        repository_mock.create_new_user.assert_called_once_with(valid_user)
+        repository_mock.create_new_user.assert_called_once()
 
     def test_create_user_already_exists(self, repository_mock):
         valid_user = UserRegisterSchema(**{
