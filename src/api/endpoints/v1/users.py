@@ -7,4 +7,4 @@ users_router = APIRouter()
 
 @users_router.post("/users/create")
 async def get_all_orders(user: UserRegister):
-    UserService.create_user()
+    UserService.create_user(user)
