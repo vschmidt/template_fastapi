@@ -10,7 +10,7 @@ class UserModel(base):
     full_name = Column(String(240), nullable=False)
     email = Column(String(240), nullable=False)
     cpf = Column(String(11), nullable=False, unique=True)
-    password = Column(String(240), nullable=False)
+    hashed_password = Column(String(240), nullable=False)
     disabled = Column(Boolean(), nullable=False)
     created_at = Column(DateTime(), default=datetime.now)
     updated_at = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
