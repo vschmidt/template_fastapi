@@ -13,9 +13,12 @@ class UserRepository:
 
     @classmethod
     def get_user_by_cpf(cls, cpf:str) -> UserRegisterSchema:
-        with PostgresDatabase() as engine:
-            result = engine.session.execute(select(UserModel).where(UserModel.cpf==cpf))
-        
-        if len(result.all())>0:
-            return UserRegisterSchema(**result[0].to_dict())        
-        return None
+        user=None
+
+        with PostgresDatabase() as engine:          
+            result = engine.session.execute(select(UserModel).where(UserModel.cpf==cpf)).first()
+    
+            if len(result)>0:            
+                user = UserRegisterSchema(**result[0].to_dict())      
+                         
+        return user
