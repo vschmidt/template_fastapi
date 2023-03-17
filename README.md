@@ -9,6 +9,7 @@ This Test API was created to solve a fake business rule.
 ### 1. Run Docker compose
 
 - If necessary, set environment variables like `docker compose up -d`
+- Run `docker exec api python3 -m alembic upgrade head` command to perform migrations
 - Access the docs from `127.0.0.1:8000/docs`
 
 ## :office: Run on HOST machine
@@ -22,6 +23,7 @@ This Test API was created to solve a fake business rule.
 - Install pipenv: `pip install pipenv`
 - Install requirements: `pipenv install --dev`
 - If necessary, set environment variables like `app/settings/environment.py`
+- Run `alembic upgrade head` command to perform migrations
 
 ### 2. Run app
 
