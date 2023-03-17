@@ -8,7 +8,7 @@ class UserModel(base):
     
     id = Column(Integer(), primary_key=True)
     full_name = Column(String(240), nullable=False)
-    email = Column(String(240), nullable=False, unique=True)
+    email = Column(String(240), nullable=False)
     cpf = Column(String(11), nullable=False, unique=True)
     password = Column(String(240), nullable=False)
     disabled = Column(Boolean(), nullable=False)
