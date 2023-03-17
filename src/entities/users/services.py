@@ -1,7 +1,7 @@
 
 from passlib.context import CryptContext
 
-from src.entities.users.schemas import UserRegisterSchema, UserInDBSchema
+from src.entities.users.schemas import UserRegisterSchema, UserInDBSchema, UserLoginSchema
 from src.entities.users.repository import UserRepository
 from src.shared.exceptions.exceptions import UserAlreadyExists
 
@@ -25,4 +25,6 @@ class UserService:
 
         return user_with_hased_pass
 
-        
+    @classmethod
+    def token_login(cls, user:UserLoginSchema):
+        return None

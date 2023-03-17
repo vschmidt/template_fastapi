@@ -18,3 +18,7 @@ class UserRegisterSchema(UserSchema):
     
 class UserInDBSchema(UserSchema):
     hashed_password: str
+
+class UserLoginSchema(BaseModel):
+    email: str
+    password: str
