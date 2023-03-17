@@ -8,8 +8,9 @@ class TestUsersV1(unittest.TestCase):
     def setUp(self):
         from src.main import app
         self.client = TestClient(app)
-
-    def test_create_new_user(self):
+    
+    @patch("src.api.endpoints.v1.users.UserService")
+    def test_create_new_user(self, service_mock):
         user = UserRegister(**{
             "full_name": "Full Name",
             "email": "email@email.com",
@@ -21,3 +22,4 @@ class TestUsersV1(unittest.TestCase):
         response = self.client.post("/v1/users/create", json=user)
 
         self.assertEqual(response.status_code, 200)
+        service_mock.create_user.assert_called_once()
