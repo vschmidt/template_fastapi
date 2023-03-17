@@ -1,10 +1,12 @@
 import unittest
 from unittest.mock import patch
-from fastapi.testclient import TestClient    
+from fastapi.testclient import TestClient
+
 
 class TestOrdersV1(unittest.TestCase):
     def setUp(self):
         from src.main import app
+
         self.client = TestClient(app)
 
     @patch("src.api.endpoints.v1.orders.OrderService")

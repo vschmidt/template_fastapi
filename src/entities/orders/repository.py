@@ -7,6 +7,7 @@ from src.entities.orders.models import OrderModel
 from src.entities.orders.schemas import OrderSchema
 from src.infrastructure.postgres.database import PostgresDatabase
 
+
 class OrderRepository:
     @classmethod
     def get_all_orders(cls):

@@ -1,24 +1,28 @@
 import unittest
 from unittest.mock import patch
-from fastapi.testclient import TestClient    
+from fastapi.testclient import TestClient
 from fastapi import status
 
 from src.entities.users.schemas import UserLoginSchema, UserRegisterSchema
 
+
 class TestUsersV1(unittest.TestCase):
     def setUp(self):
         from src.main import app
+
         self.client = TestClient(app)
-    
+
     @patch("src.api.endpoints.v1.users.UserService")
     def test_create_new_user_with_success(self, service_mock):
-        user = UserRegisterSchema(**{
-            "full_name": "Full Name",
-            "email": "email@email.com",
-            "cpf": "12312312312",
-            "password": "password",
-            "disabled": False
-        }).dict()
+        user = UserRegisterSchema(
+            **{
+                "full_name": "Full Name",
+                "email": "email@email.com",
+                "cpf": "12312312312",
+                "password": "password",
+                "disabled": False,
+            }
+        ).dict()
 
         response = self.client.post("/v1/users/create", json=user)
 
@@ -27,13 +31,15 @@ class TestUsersV1(unittest.TestCase):
 
     @patch("src.api.endpoints.v1.users.UserService")
     def test_create_new_user_with_fail(self, service_mock):
-        user = UserRegisterSchema(**{
-            "full_name": "Full Name",
-            "email": "email@email.com",
-            "cpf": "12312312312",
-            "password": "password",
-            "disabled": False
-        }).dict()
+        user = UserRegisterSchema(
+            **{
+                "full_name": "Full Name",
+                "email": "email@email.com",
+                "cpf": "12312312312",
+                "password": "password",
+                "disabled": False,
+            }
+        ).dict()
 
         service_mock.create_user.side_effect = ValueError
 
@@ -44,10 +50,12 @@ class TestUsersV1(unittest.TestCase):
 
     @patch("src.api.endpoints.v1.users.UserService")
     def test_create_new_user_with_success(self, service_mock):
-        user = UserLoginSchema(**{            
-            "cpf": "email@email.com",           
-            "password": "password",
-        }).dict()
+        user = UserLoginSchema(
+            **{
+                "cpf": "email@email.com",
+                "password": "password",
+            }
+        ).dict()
         service_mock.token_login.return_value = None
 
         response = self.client.post("/v1/users/token", json=user)
