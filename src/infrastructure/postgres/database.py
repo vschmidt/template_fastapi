@@ -13,7 +13,7 @@ class PostgresDatabase(metaclass=Singleton):
         self.session = None
 
     def __create_database_engine(self):
-        engine = create_engine(self.env.POSTGRES_CONNECTION_STRING)
+        engine = create_engine(self.env.DATABASE_CONNECTION_STRING)
         return engine
     
     def __create_base(self):

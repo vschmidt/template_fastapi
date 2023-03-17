@@ -7,4 +7,4 @@ class TestEnvironment(unittest.TestCase):
     def test_instanciate_environment(self):
         env = Environment()
 
-        self.assertIsNotNone(env.POSTGRES_CONNECTION_STRING)
+        self.assertIsNotNone(env.DATABASE_CONNECTION_STRING)
