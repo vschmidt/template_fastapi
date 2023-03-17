@@ -1,7 +1,4 @@
-"""
-Order repository module
-"""
-from sqlalchemy import select
+from sqlalchemy import select, insert
 
 from src.entities.orders.models import OrderModel
 from src.entities.orders.schemas import CreateOrderSchema, OrderSchema
@@ -19,4 +16,6 @@ class OrderRepository:
 
     @classmethod
     def create_new_order(cls, order: CreateOrderSchema):
-        pass
+        with PostgresDatabase() as engine:
+            engine.session.execute(insert(OrderModel).values(**order.dict()))
+            engine.session.commit()
