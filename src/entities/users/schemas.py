@@ -1,11 +1,11 @@
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, validator, Field
 
 
 class UserSchema(BaseModel):
-    full_name: str
-    email: str
-    cpf: str
-    disabled: bool = False
+    full_name: str = Field(example="Guts")
+    email: str = Field(example="email@example.com")
+    cpf: str = Field(example="12312312312")
+    disabled: bool = Field(False, example=False)
 
     @validator("cpf")
     def cpf_have_right_len(cls, cpf):
@@ -16,7 +16,7 @@ class UserSchema(BaseModel):
 
 
 class UserRegisterSchema(UserSchema):
-    password: str
+    password: str = Field(example="Minhasenhasuperforte!1")
 
 
 class UserInDBSchema(UserSchema):
@@ -24,5 +24,5 @@ class UserInDBSchema(UserSchema):
 
 
 class UserLoginSchema(BaseModel):
-    cpf: str
-    password: str
+    cpf: str = Field(example="12312312312")
+    password: str = Field(example="Minhasenhasuperforte!1")
