@@ -29,12 +29,28 @@ This Test API was created to solve a fake business rule.
 - It runs an uvicorn server at `127.0.0.1:8000`
 - Access the docs from `127.0.0.1:8000/docs`
 
-### 3. Build and Test
+## :bug: Run Tests
 
 To run the tests just follow the steps:
 
 - Run `pip install -r requirements/test.txt` command
 - Run `pytest` command
+
+## :twisted_rightwards_arrows: Run Migrations
+
+### Add new migration
+
+- Add/Remove import model in `src\infrastructure\postgres\metadata_agregation.py` file
+- Run `alembic revision --autogenerate -m "my_migration_name"` command
+
+### Upgrade migration
+
+- Run `alembic upgrade head` command
+- Alternative, you can upgrate by steps with `alembic upgrade +1`
+
+### Downgrade migration
+
+- Run `alembic downgrade -1` command
 
 # Latest releases
 
