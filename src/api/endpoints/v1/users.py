@@ -1,9 +1,11 @@
 import logging
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Depends
 from fastapi.responses import JSONResponse
 
 from src.entities.users.schemas import UserRegisterSchema, UserLoginSchema
 from src.entities.users.services import UserService
+from src.shared.auth_bearer_validator import AuthBearerValidator
+from src.shared.schemas import TokenInfos
 
 users_router = APIRouter()
 
@@ -42,3 +44,8 @@ async def get_user_token(user: UserLoginSchema):
         return JSONResponse(
             {"message": "Erro ao processar"}, status_code=status.HTTP_400_BAD_REQUEST
         )
+
+
+@users_router.get("/users/me")
+async def get_me_information(token_infos: dict = Depends(AuthBearerValidator())):
+    return UserService.get_current_user(TokenInfos(**token_infos))
