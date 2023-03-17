@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends
+import logging
+from fastapi import APIRouter, Depends, status
+from fastapi.responses import JSONResponse
 
 from src.entities.orders.schemas import CreateOrderSchema
 from src.entities.orders.services import OrderService
@@ -16,4 +18,14 @@ async def get_all_orders(token_infos: dict = Depends(AuthBearerValidator())):
 async def create_order(
     order: CreateOrderSchema, token_infos: dict = Depends(AuthBearerValidator())
 ):
-    return OrderService.create_order(order)
+    try:
+        OrderService.create_order(order)
+        return JSONResponse(
+            {"message": "Compra registrada"}, status_code=status.HTTP_201_CREATED
+        )
+    except Exception as err:
+        logging.error(err)
+        return JSONResponse(
+            {"message": "Erro ao processar sua compra"},
+            status_code=status.HTTP_400_BAD_REQUEST,
+        )

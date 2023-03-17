@@ -56,5 +56,28 @@ class TestOrdersV1(unittest.TestCase):
             json=order,
         )
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        service_mock.create_order.assert_called_once()
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        service_mock.create_order.assert_called_once_with(order)
+
+    @patch("src.api.endpoints.v1.orders.OrderService")
+    def test_create_order_with_error_in_order_service(self, service_mock):
+        order = CreateOrderSchema(
+            **{
+                "code": 1589,
+                "value": 22.5,
+                "cpf": "12345645600",
+                "date": str(datetime.utcnow()),
+            }
+        ).dict()
+        service_mock.create_order.side_effect = ValueError
+
+        response = self.client.post(
+            "/v1/orders/create",
+            headers={
+                "Authorization": f"Bearer {self.jwt_generator.generate_valid_token()}"
+            },
+            json=order,
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        service_mock.create_order.assert_called_once_with(order)
