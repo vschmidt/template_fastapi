@@ -29,7 +29,7 @@ class AuthBearerValidator(HTTPBearer):
     def verify_jwt(self, token: str) -> Tuple[bool, Dict]:
         is_token_valid: bool = False
         payload = self.decode_jwt(token)
-        
+
         if payload:
             is_token_valid = True
         return is_token_valid, payload
