@@ -4,6 +4,7 @@ from fastapi.testclient import TestClient
 from fastapi import status
 
 from src.entities.users.schemas import UserLoginSchema, UserRegisterSchema
+from tests.utils.bearer_token_utils import JWTGenerator
 
 
 class TestUsersV1(unittest.TestCase):
@@ -11,6 +12,7 @@ class TestUsersV1(unittest.TestCase):
         from src.main import app
 
         self.client = TestClient(app)
+        self.jwt_generator = JWTGenerator()
 
     @patch("src.api.endpoints.v1.users.UserService")
     def test_create_new_user_with_success(self, service_mock):
@@ -26,7 +28,7 @@ class TestUsersV1(unittest.TestCase):
 
         response = self.client.post("/v1/users/create", json=user)
 
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         service_mock.create_user.assert_called_once()
 
     @patch("src.api.endpoints.v1.users.UserService")
@@ -60,5 +62,23 @@ class TestUsersV1(unittest.TestCase):
 
         response = self.client.post("/v1/users/token", json=user)
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         service_mock.token_login.assert_called_once_with(user)
+
+    @patch("src.api.endpoints.v1.users.UserService")
+    def test_get_me_information_without_token(self, service_mock):
+        response = self.client.get("/v1/users/me")
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    @patch("src.api.endpoints.v1.users.UserService")
+    def test_get_me_information_with_valid_token(self, service_mock):
+        response = self.client.get(
+            "/v1/users/me",
+            headers={
+                "Authorization": f"Bearer {self.jwt_generator.generate_valid_token()}"
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        service_mock.get_current_user.assert_called_once()

@@ -7,10 +7,12 @@ from src.entities.users.schemas import (
     UserRegisterSchema,
     UserInDBSchema,
     UserLoginSchema,
+    UserSchema,
 )
 from src.entities.users.repository import UserRepository
 from src.shared.exceptions.exceptions import UserAlreadyExists
 from src.settings.environment import Environment
+from src.shared.schemas import TokenInfos
 
 
 class UserService:
@@ -67,3 +69,9 @@ class UserService:
 
         encoded_jwt = jwt.encode(to_encode, env.SECRET_KEY, algorithm=env.ALGORITHM)
         return encoded_jwt
+
+    @classmethod
+    def get_current_user(cls, token_infos: TokenInfos):
+        print(token_infos)
+        user_in_db = UserRepository.get_user_by_cpf(token_infos.cpf)
+        return UserSchema(**user_in_db.dict())
