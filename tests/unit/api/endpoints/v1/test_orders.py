@@ -1,7 +1,9 @@
+from datetime import datetime
 from fastapi import status
 import unittest
 from unittest.mock import patch
 from fastapi.testclient import TestClient
+from src.entities.orders.schemas import CreateOrderSchema
 
 from tests.utils.bearer_token_utils import JWTGenerator
 
@@ -37,11 +39,21 @@ class TestOrdersV1(unittest.TestCase):
 
     @patch("src.api.endpoints.v1.orders.OrderService")
     def test_create_order_with_valid_token(self, service_mock):
+        order = CreateOrderSchema(
+            **{
+                "code": 1589,
+                "value": 22.5,
+                "cpf": "12345645600",
+                "date": str(datetime.utcnow()),
+            }
+        ).dict()
+
         response = self.client.post(
             "/v1/orders/create",
             headers={
                 "Authorization": f"Bearer {self.jwt_generator.generate_valid_token()}"
             },
+            json=order,
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)

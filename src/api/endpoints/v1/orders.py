@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
 
+from src.entities.orders.schemas import CreateOrderSchema
 from src.entities.orders.services import OrderService
 from src.shared.auth_bearer_validator import AuthBearerValidator
 
@@ -12,5 +13,7 @@ async def get_all_orders(token_infos: dict = Depends(AuthBearerValidator())):
 
 
 @orders_router.post("/orders/create")
-async def create_order(token_infos: dict = Depends(AuthBearerValidator())):
-    return OrderService.create_order()
+async def create_order(
+    order: CreateOrderSchema, token_infos: dict = Depends(AuthBearerValidator())
+):
+    return OrderService.create_order(order)
