@@ -49,3 +49,10 @@ async def get_user_token(user: UserLoginSchema):
 @users_router.get("/users/me")
 async def get_me_information(token_infos: dict = Depends(AuthBearerValidator())):
     return UserService.get_current_user(TokenInfos(**token_infos))
+
+
+@users_router.get("/users/me/accumulated-cashback")
+async def get_me_accumulated_cashback(
+    token_infos: dict = Depends(AuthBearerValidator()),
+):
+    return UserService.get_current_user_cashback(TokenInfos(**token_infos))

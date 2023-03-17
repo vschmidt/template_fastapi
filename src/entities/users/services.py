@@ -72,6 +72,9 @@ class UserService:
 
     @classmethod
     def get_current_user(cls, token_infos: TokenInfos):
-        print(token_infos)
         user_in_db = UserRepository.get_user_by_cpf(token_infos.cpf)
         return UserSchema(**user_in_db.dict())
+
+    @classmethod
+    def get_current_user_cashback(cls, token_infos: TokenInfos):
+        return token_infos.cpf
