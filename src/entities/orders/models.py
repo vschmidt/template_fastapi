@@ -1,9 +1,9 @@
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime, Numeric
 
-from src.infrastructure.postgres.database import PostgresDatabase
+from src.infrastructure.postgres.base import base
 
-class OrderModel(PostgresDatabase().get_base()):
+class OrderModel(base):
     __tablename__ = 'orders'
     
     id = Column(Integer(), primary_key=True)
