@@ -18,7 +18,7 @@ class UserRepository:
         with PostgresDatabase() as engine:          
             result = engine.session.execute(select(UserModel).where(UserModel.cpf==cpf)).first()
     
-            if len(result)>0:            
+            if result:            
                 user = UserRegisterSchema(**result[0].to_dict())      
                          
         return user
