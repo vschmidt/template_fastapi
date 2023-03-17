@@ -9,6 +9,7 @@ uvicorn = {version="0.21.1", extras=["standard"]}
 sqlalchemy = "==2.0.6"
 psycopg2 = "==2.9.5"
 alembic = "==1.10.2"
+python-jose = {version="3.3.0", extras=["cryptography"]}
 
 [dev-packages]
 black = "==23.1.0"
