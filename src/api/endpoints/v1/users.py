@@ -20,11 +20,12 @@ async def create_user(user: UserRegisterSchema):
 async def get_user_token(user: UserLoginSchema):
     try:
         jwt_token_created = UserService.token_login(user)
-        
-        if jwt_token_created:
-            return JSONResponse({"token":jwt_token_created}, status_code=status.HTTP_200_OK)
 
-        return JSONResponse({"message":"Erro ao processar"}, status_code=status.HTTP_400_BAD_REQUEST)
+        if jwt_token_created:            
+            return JSONResponse({"access_token": jwt_token_created, "token_type": "bearer"},
+                                status_code=status.HTTP_200_OK)
+
+        return JSONResponse({"message":"CPF ou senha inválido(s)"}, status_code=status.HTTP_401_UNAUTHORIZED)
     except Exception as err:
         logging.error(err)
         return JSONResponse({"message":"Erro ao processar"}, status_code=status.HTTP_400_BAD_REQUEST)
