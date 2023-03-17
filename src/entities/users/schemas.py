@@ -5,7 +5,7 @@ class UserRegisterSchema(BaseModel):
     email: str
     cpf: str
     password: str
-    disabled: bool | None = None
+    disabled: bool = False
 
     @validator("cpf")
     def cpf_have_right_len(cls, cpf):
