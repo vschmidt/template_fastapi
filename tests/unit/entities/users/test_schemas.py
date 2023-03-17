@@ -3,12 +3,12 @@ from unittest.mock import patch
 
 import pytest
 
-from src.entities.users.schemas import UserRegister
+from src.entities.users.schemas import UserRegisterSchema
 
 
 class TestUserSchemas(unittest.TestCase):
     def test_user_register(self):
-        valid_user = UserRegister(**{
+        valid_user = UserRegisterSchema(**{
             "full_name": "Full Name",
             "email": "email@email.com",
             "cpf": "12312312312",
@@ -21,7 +21,7 @@ class TestUserSchemas(unittest.TestCase):
     def test_user_register_with_invalid_cpf(self):
         
         with pytest.raises(ValueError)  as excinfo:
-            UserRegister(**{
+            UserRegisterSchema(**{
                 "full_name": "Full Name",
                 "email": "email@email.com",
                 "cpf": "invalid_value",

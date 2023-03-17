@@ -1,6 +1,6 @@
 from pydantic import BaseModel, validator
 
-class UserRegister(BaseModel):
+class UserRegisterSchema(BaseModel):
     full_name: str
     email: str
     cpf: str

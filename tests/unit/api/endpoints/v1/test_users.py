@@ -3,7 +3,7 @@ from unittest.mock import patch
 from fastapi.testclient import TestClient    
 from fastapi import status
 
-from src.entities.users.schemas import UserRegister
+from src.entities.users.schemas import UserRegisterSchema
 
 class TestUsersV1(unittest.TestCase):
     def setUp(self):
@@ -12,7 +12,7 @@ class TestUsersV1(unittest.TestCase):
     
     @patch("src.api.endpoints.v1.users.UserService")
     def test_create_new_user_with_success(self, service_mock):
-        user = UserRegister(**{
+        user = UserRegisterSchema(**{
             "full_name": "Full Name",
             "email": "email@email.com",
             "cpf": "12312312312",
@@ -27,7 +27,7 @@ class TestUsersV1(unittest.TestCase):
 
     @patch("src.api.endpoints.v1.users.UserService")
     def test_create_new_user_with_fail(self, service_mock):
-        user = UserRegister(**{
+        user = UserRegisterSchema(**{
             "full_name": "Full Name",
             "email": "email@email.com",
             "cpf": "12312312312",
