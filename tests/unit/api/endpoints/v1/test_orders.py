@@ -29,3 +29,20 @@ class TestOrdersV1(unittest.TestCase):
 
         service_mock.get_all_orders.assert_called_once()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_create_order_without_token(self):
+        response = self.client.post("/v1/orders/create")
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    @patch("src.api.endpoints.v1.orders.OrderService")
+    def test_create_order_with_valid_token(self, service_mock):
+        response = self.client.post(
+            "/v1/orders/create",
+            headers={
+                "Authorization": f"Bearer {self.jwt_generator.generate_valid_token()}"
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        service_mock.create_order.assert_called_once()
