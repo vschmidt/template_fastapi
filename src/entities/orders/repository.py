@@ -3,7 +3,7 @@ from sqlalchemy import select, insert
 from src.entities.orders.models import OrderModel
 from src.entities.orders.schemas import (
     CreateOrderSchema,
-    PublicOrderSchema,
+    OrderInDBSchema,
 )
 from src.infrastructure.postgres.database import PostgresDatabase
 
@@ -14,7 +14,7 @@ class OrderRepository:
         with PostgresDatabase() as engine:
             results = engine.session.execute(select(OrderModel)).all()
 
-        results = [PublicOrderSchema(**r[0].to_dict()) for r in results]
+        results = [OrderInDBSchema(**r[0].to_dict()) for r in results]
         return results
 
     @classmethod

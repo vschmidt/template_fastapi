@@ -35,7 +35,7 @@ class OrderSchema(BaseModel):
         return cpf
 
 
-class PublicOrderSchema(BaseModel):
+class OrderInDBSchema(BaseModel):
     code: int = Field(example=1589)
     value: float = Field(example=22.5)
     cpf: str = Field(max_length=11, example="12312312312")
@@ -50,3 +50,12 @@ class PublicOrderSchema(BaseModel):
             raise ValueError("CPF deve conter 11 caracteres")
 
         return cpf
+
+
+class PublicOrderSchema(BaseModel):
+    code: int = Field(example=1589)
+    value: float = Field(example=22.5)
+    date: datetime = Field(example=datetime.now(), default=datetime.now())
+    cashback_pct: str = Field(max_length=10, example="10%")
+    cashback_value: float = Field(example=2.25)
+    status: str = Field(example="Em validação", default="Em validação")
